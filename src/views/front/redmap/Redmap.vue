@@ -29,25 +29,25 @@
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-5">
             <el-icon>
-              <Coin/>
+              <Ship/>
             </el-icon>
             革命精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-6">
             <el-icon>
-              <Coin/>
+              <Sunrise/>
             </el-icon>
             艰苦创业精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-7">
             <el-icon>
-              <Coin/>
+              <MagicStick/>
             </el-icon>
             改革开放精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-8">
             <el-icon>
-              <Coin/>
+              <Watch/>
             </el-icon>
             新时代伟大奋斗精神
           </el-menu-item>
@@ -64,7 +64,7 @@
 <script setup>
 import {reactive, computed} from "vue";
 import {useRoute} from "vue-router";
-import {Coin, Place, TrophyBase, User} from "@element-plus/icons-vue";
+import {Coin, MagicStick, Place, Ship, Sunrise, TrophyBase, User, Watch} from "@element-plus/icons-vue";
 
 const data = reactive({})
 

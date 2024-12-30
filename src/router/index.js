@@ -281,7 +281,20 @@ const router = createRouter({
                             path: 'whu',
                             name: 'front-archive-whu',
                             meta: {title: '武大建筑档案', needLogin: true},
-                            component: () => import('../views/front/archive/Archive1.vue'),
+                            component: () => import('../views/front/archive/Archive1.vue'), children: [
+                                {
+                                    path: 'nowadays',
+                                    name: 'front-archive-whu-nowadays',
+                                    meta: {title: '现状分析', needLogin: true},
+                                    component: () => import('../views/front/archive/Archive2.vue'),
+                                },
+                                {
+                                    path: 'items',
+                                    name: 'front-archive-whu-items',
+                                    meta: {title: '建筑单体', needLogin: true},
+                                    component: () => import('../views/front/archive/Archive3.vue'),
+                                },
+                            ]
                         },
                     ]
                 },

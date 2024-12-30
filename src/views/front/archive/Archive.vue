@@ -36,7 +36,7 @@
     </el-space>
   </div>
 
-  <el-dialog v-model="data.dialogVisible" width="79%" @close="data.currentImage = ''">
+  <el-dialog v-model="data.dialogVisible" width="50%" @close="data.currentImage = ''">
     <!--    <div class="image-container">-->
     <!--      <img :src="data.currentImage" alt="预览图" style="width: 668px; height: 501px;"/>-->
     <!--    </div>-->
@@ -112,14 +112,14 @@
             <el-input :rows="2" type="textarea" v-model="data.form.archiDetail"/>
           </el-form-item>
           <el-form-item label="红色故事：" label-position="right" prop="archiStoryabstract">
-            <el-input :rows="2" type="textarea" v-model="data.form.archiStoryabstract" autocomplete="off"/>
+            <el-input :rows="2" type="textarea" v-model="data.form.archiStoryfull" autocomplete="off"/>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
   </el-dialog>
 
-  <el-dialog v-model="data.dialogWhuVisible" width="79%" @close="data.currentImage = ''">
+  <el-dialog v-model="data.dialogWhuVisible" width="50%" @close="data.currentImage = ''; router.push('/front/archive')">
     <RouterView/>
   </el-dialog>
 </template>
@@ -175,6 +175,6 @@ const handleImagePreview = (imageUrl) => {
 
 const loadWhu = () => {
   data.dialogWhuVisible = true;
-  router.push('/front/archive/whu')
+  router.push('/front/archive/whu/nowadays')
 }
 </script>
