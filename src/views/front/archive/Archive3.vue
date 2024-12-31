@@ -28,43 +28,45 @@
 
     <!-- PDF 预览弹窗 -->
     <el-dialog v-model="data.dialogVisible" width="50%" height="auto" @close="closeDialog">
-      <div v-if="selectedPdf">
-        <!-- 翻页按钮 -->
-        <div style="margin-bottom: 10px; text-align: center;">
-          <el-button
-              :icon="ArrowLeft"
-              @click="prevPage"
-              :disabled="currentPage === 1"
-              style="margin-right: 10px;"
-          >
-            上一页
-          </el-button>
-          <span>第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
-          <el-button
-              @click="nextPage"
-              :disabled="currentPage === totalPages"
-              style="margin-left: 10px;"
-          >
-            下一页
-            <el-icon class="el-icon--right">
-              <ArrowRight/>
-            </el-icon>
-          </el-button>
-        </div>
+      <el-watermark :content="['湖北省校园文化遗产数字信息管理平台']">
+        <div v-if="selectedPdf">
+          <!-- 翻页按钮 -->
+          <div style="margin-bottom: 10px; text-align: center;">
+            <el-button
+                :icon="ArrowLeft"
+                @click="prevPage"
+                :disabled="currentPage === 1"
+                style="margin-right: 10px;"
+            >
+              上一页
+            </el-button>
+            <span>第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
+            <el-button
+                @click="nextPage"
+                :disabled="currentPage === totalPages"
+                style="margin-left: 10px;"
+            >
+              下一页
+              <el-icon class="el-icon--right">
+                <ArrowRight/>
+              </el-icon>
+            </el-button>
+          </div>
 
-        <!-- PDF 内容 -->
-        <VuePdfEmbed
-            class="pdf"
-            style="border: 2px solid #eeeeee; width: 100%;"
-            annotation-layer
-            text-layer
-            :source="selectedPdf"
-            :page="currentPage"
-            @loaded="onPdfLoaded"
-            @error="onPdfError"
-        />
-      </div>
-      <el-empty v-else description="未找到对应的 PDF 文件"/>
+          <!-- PDF 内容 -->
+          <VuePdfEmbed
+              class="pdf"
+              style="border: 2px solid #eeeeee; width: 100%;"
+              annotation-layer
+              text-layer
+              :source="selectedPdf"
+              :page="currentPage"
+              @loaded="onPdfLoaded"
+              @error="onPdfError"
+          />
+        </div>
+        <el-empty v-else description="未找到对应的 PDF 文件"/>
+      </el-watermark>
     </el-dialog>
   </div>
 </template>

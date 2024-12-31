@@ -1,28 +1,30 @@
 <template>
-  <div>
-    <div style="display: flex;">
-      <el-card style="width: 220px; min-height: calc(100vh - 160px)">
-        <el-menu router :default-active="activePath" style="border: 0" active-text-color="#f56c6c">
-          <el-menu-item index="/front/archive/whu/nowadays">
-            <el-icon>
-              <Document/>
-            </el-icon>
-            现状分析
-          </el-menu-item>
-          <el-menu-item index="/front/archive/whu/items">
-            <el-icon>
-              <School/>
-            </el-icon>
-            建筑单体
-          </el-menu-item>
-        </el-menu>
-      </el-card>
+  <el-watermark :content="['湖北省校园文化遗产数字信息智慧平台']">
+    <div>
+      <div style="display: flex;">
+        <el-card style="width: 220px; min-height: calc(100vh - 160px)">
+          <el-menu router :default-active="activePath" style="border: 0" active-text-color="#f56c6c">
+            <el-menu-item index="/front/archive/whu/nowadays">
+              <el-icon>
+                <Document/>
+              </el-icon>
+              现状分析
+            </el-menu-item>
+            <el-menu-item index="/front/archive/whu/items">
+              <el-icon>
+                <School/>
+              </el-icon>
+              建筑单体
+            </el-menu-item>
+          </el-menu>
+        </el-card>
 
-      <div style="flex: 1; width: 0; padding-left: 10px">
-        <RouterView/>
+        <div style="flex: 1; width: 0; padding-left: 10px">
+          <RouterView/>
+        </div>
       </div>
     </div>
-  </div>
+  </el-watermark>
 </template>
 
 <script setup>
