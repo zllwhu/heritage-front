@@ -27,7 +27,7 @@
     </el-space>
 
     <!-- PDF 预览弹窗 -->
-    <el-dialog v-model="data.dialogVisible" width="50%" height="auto" @close="closeDialog">
+    <el-dialog v-model="data.dialogVisible" height="100%" width="80%" @close="closeDialog">
       <el-watermark :content="['湖北省校园文化遗产数字信息管理平台']">
         <div v-if="selectedPdf">
           <!-- 翻页按钮 -->
@@ -56,7 +56,7 @@
           <!-- PDF 内容 -->
           <VuePdfEmbed
               class="pdf"
-              style="border: 2px solid #eeeeee; width: 100%;"
+              style="border: 2px solid #eeeeee; width: 100%; height: 800px"
               annotation-layer
               text-layer
               :source="selectedPdf"

@@ -12,9 +12,21 @@
             </el-menu-item>
             <el-menu-item index="/front/archive/whu/items">
               <el-icon>
-                <School/>
+                <Document/>
               </el-icon>
-              建筑单体
+              遗产简介
+            </el-menu-item>
+            <el-menu-item index="1">
+              <el-icon>
+                <Document/>
+              </el-icon>
+              三维模型
+            </el-menu-item>
+            <el-menu-item index="1">
+              <el-icon>
+                <Document/>
+              </el-icon>
+              专家解读
             </el-menu-item>
           </el-menu>
         </el-card>

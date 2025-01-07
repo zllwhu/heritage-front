@@ -58,7 +58,7 @@ const data = reactive({
       url: 'https://www.ccbim.com/front/index.html#/moreFileShare?qrcodeid=174385&hash=81a3f193d6d9795cd283487a34bad101'
     },
     {
-      name: '台基层 栏杆',
+      name: '水工所台基层 栏杆',
       image: '/models/水工所/institute/台基层 栏杆.png',
       url: 'https://www.ccbim.com/front/index.html#/moreFileShare?qrcodeid=174108&hash=87ad772556cd824645da79587e4b6170'
     },

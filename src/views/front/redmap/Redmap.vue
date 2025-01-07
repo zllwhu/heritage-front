@@ -5,49 +5,49 @@
         <el-menu router :default-active="activePath" style="border: 0" active-text-color="#f56c6c">
           <el-menu-item index="/front/redmap/spirit-1">
             <el-icon>
-              <Place/>
+              <Flag/>
             </el-icon>
             建党精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-2">
             <el-icon>
-              <TrophyBase/>
+              <Flag/>
             </el-icon>
             抗战精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-3">
             <el-icon>
-              <User/>
+              <Flag/>
             </el-icon>
             三牛精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-4">
             <el-icon>
-              <Coin/>
+              <Flag/>
             </el-icon>
             科学家精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-5">
             <el-icon>
-              <Ship/>
+              <Flag/>
             </el-icon>
             革命精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-6">
             <el-icon>
-              <Sunrise/>
+              <Flag/>
             </el-icon>
             艰苦创业精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-7">
             <el-icon>
-              <MagicStick/>
+              <Flag/>
             </el-icon>
             改革开放精神
           </el-menu-item>
           <el-menu-item index="/front/redmap/spirit-8">
             <el-icon>
-              <Watch/>
+              <Flag/>
             </el-icon>
             新时代伟大奋斗精神
           </el-menu-item>
@@ -64,7 +64,7 @@
 <script setup>
 import {reactive, computed} from "vue";
 import {useRoute} from "vue-router";
-import {Coin, MagicStick, Place, Ship, Sunrise, TrophyBase, User, Watch} from "@element-plus/icons-vue";
+import {Flag, Coin, MagicStick, Place, Ship, Sunrise, TrophyBase, User, Watch} from "@element-plus/icons-vue";
 
 const data = reactive({})
 

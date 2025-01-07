@@ -36,7 +36,7 @@
     </el-space>
   </div>
 
-  <el-dialog v-model="data.dialogVisible" width="50%" @close="data.currentImage = ''">
+  <el-dialog v-model="data.dialogVisible" width="80%" @close="data.currentImage = ''">
     <!--    <div class="image-container">-->
     <!--      <img :src="data.currentImage" alt="预览图" style="width: 668px; height: 501px;"/>-->
     <!--    </div>-->
@@ -119,7 +119,7 @@
     </el-form>
   </el-dialog>
 
-  <el-dialog v-model="data.dialogWhuVisible" width="50%" @close="data.currentImage = ''; router.push('/front/archive')">
+  <el-dialog v-model="data.dialogWhuVisible" width="80%" @close="data.currentImage = ''; router.push('/front/archive')">
     <RouterView/>
   </el-dialog>
 </template>

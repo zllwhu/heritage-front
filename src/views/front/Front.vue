@@ -7,8 +7,8 @@
           <div
               style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-left: 10px">
             <span
-                style="font-size: 20px; color: #c90b16; font-weight: bold; font-family: 'Heiti SC',serif; margin-bottom: 3px; margin-top: 5px">湖北省校园文化遗产数字信息管理平台</span>
-            <span style="font-size: 9px; color: #c90b16; font-family: 'Heiti SC',serif">Hubei Province campus cultural heritage digital information intelligent platform</span>
+                style="font-size: 30px; color: #c90b16; font-weight: bold; font-family: 'Heiti SC',serif; margin-bottom: 3px; margin-top: 5px">湖北省校园文化遗产数字信息管理平台</span>
+            <span style="font-size: 14px; color: #c90b16; font-family: 'Heiti SC',serif">Hubei Province campus cultural heritage digital information intelligent platform</span>
           </div>
         </div>
         <div style="flex: 1"/>
@@ -139,7 +139,8 @@ onBeforeUnmount(() => {
 }
 
 .el-menu-item {
-  font-size: 16px;
+  font-size: 22px;
+  font-weight: bold;
   color: #fef2cb;
 }
 

@@ -25,7 +25,7 @@
             <el-icon>
               <Football/>
             </el-icon>
-            三维模型
+            三维展示
           </el-menu-item>
           <el-menu-item index="/front/digital/tourist">
             <el-icon>
@@ -63,5 +63,9 @@ const activePath = computed(() => route.path);
 .el-menu-item.is-active {
   background: floralwhite !important;
   color: #f56c6c !important;
+}
+
+.el-menu-item {
+  font-size: 18px;
 }
 </style>
