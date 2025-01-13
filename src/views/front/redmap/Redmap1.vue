@@ -9,7 +9,7 @@
       <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（四）对党忠诚、不负人民。带领人民创造幸福生活，是我们党始终不渝的奋斗目标。我们要顺应人民群众对美好生活的向往，坚持以人民为中心的发展思想，以保障和改善民生为重点，发展各项社会事业，加大收入分配调节力度，打赢脱贫攻坚战，保证人民平等参与、平等发展权利，使改革发展成果更多更公平惠及全体人民，朝着实现全体人民共同富裕的目标稳步迈进。
     </el-card>
     <el-space wrap>
-      <el-card v-for="(building, index) in data.buildings" :key="index" class="box-card" style="width: 236px">
+      <el-card v-for="(building, index) in data.buildings" :key="index" class="box-card" style="width: 228px">
         <template #header>
           <div class="card-header">
             <span>{{ building.name }}</span>

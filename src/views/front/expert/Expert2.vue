@@ -1,5 +1,5 @@
 <script setup>
-import {reactive, computed, ref, onMounted} from 'vue';
+import {reactive, ref, computed} from 'vue';
 import VuePdfEmbed from 'vue-pdf-embed';
 import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue";
 
@@ -9,13 +9,30 @@ import 'vue-pdf-embed/dist/styles/textLayer.css';
 
 // 数据和 PDF 列表
 const data = reactive({
-  selectedItem: '', // 当前选择的建筑
+  selectedItem: '', // 当前选择的文件
   options: [
-    {value: 'Option1', label: '笔谈：革命文物的内涵解绎、保护运用与传播传承_何依', pdf: '/papers/笔谈：革命文物的内涵解绎、保护运用与传播传承_何依.pdf'},
-    {value: 'Option2', label: '基于国际文化遗产展示与阐释对上海红色遗址遗迹展示与阐释现状的思考_任伟', pdf: '/papers/基于国际文化遗产展示与阐释对上海红色遗址遗迹展示与阐释现状的思考_任伟.pdf'},
-    {value: 'Option3', label: '浅析当代红色文化景观规划设计——以嘉兴南湖为例_范汉', pdf: '/papers/浅析当代红色文化景观规划设计——以嘉兴南湖为例_范汉.pdf'},
-    {value: 'Option4', label: '我国红色文化遗产研究进展、热点与趋势分析_段亚鹏', pdf: '/papers/我国红色文化遗产研究进展、热点与趋势分析_段亚鹏.pdf'},
+    {
+      value: 'Option1',
+      label: '笔谈：革命文物的内涵解绎、保护运用与传播传承_何依',
+      pdf: '/papers/笔谈：革命文物的内涵解绎、保护运用与传播传承_何依.pdf'
+    },
+    {
+      value: 'Option2',
+      label: '基于国际文化遗产展示与阐释对上海红色遗址遗迹展示与阐释现状的思考_任伟',
+      pdf: '/papers/基于国际文化遗产展示与阐释对上海红色遗址遗迹展示与阐释现状的思考_任伟.pdf'
+    },
+    {
+      value: 'Option3',
+      label: '浅析当代红色文化景观规划设计——以嘉兴南湖为例_范汉',
+      pdf: '/papers/浅析当代红色文化景观规划设计——以嘉兴南湖为例_范汉.pdf'
+    },
+    {
+      value: 'Option4',
+      label: '我国红色文化遗产研究进展、热点与趋势分析_段亚鹏',
+      pdf: '/papers/我国红色文化遗产研究进展、热点与趋势分析_段亚鹏.pdf'
+    },
   ],
+  dialogVisible: false, // 控制弹窗显示
 });
 
 // PDF 页数状态
@@ -47,50 +64,58 @@ const prevPage = () => {
   }
 };
 
-// 设置默认选项
-onMounted(() => {
-  if (data.options.length > 0) {
-    data.selectedItem = data.options[0].value;
-  }
-});
+// 点击文件名时打开弹窗
+const openPdfDialog = (value) => {
+  data.selectedItem = value;
+  data.dialogVisible = true;
+};
 </script>
 
 <template>
   <div>
-    <!-- 文件选择 -->
-    <el-card style="margin-bottom: 10px">
-      请选择文件：
-      <el-select v-model="data.selectedItem" placeholder="请选择文件" style="width: 300px">
-        <el-option v-for="item in data.options" :key="item.value" :label="item.label" :value="item.value"/>
-      </el-select>
+    <!-- 文件列表 -->
+    <el-card style="margin-bottom: 10px;">
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        <li
+            v-for="item in data.options"
+            :key="item.value"
+            style="padding: 10px; border-bottom: 1px solid #ebebeb; cursor: pointer;"
+            @click="openPdfDialog(item.value)"
+        >
+          <el-link>{{ item.label }}</el-link>
+        </li>
+      </ul>
     </el-card>
 
-    <!-- PDF 显示 -->
-    <el-card v-if="selectedPdf" style="margin-bottom: 10px; padding: 20px;">
-      <!-- 翻页按钮 -->
-      <div style="margin-bottom: 10px; text-align: center;">
-        <el-button :icon="ArrowLeft" @click="prevPage" :disabled="currentPage === 1" style="margin-right: 10px;">
-          上一页
-        </el-button>
-        <span>第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
-        <el-button @click="nextPage" :disabled="currentPage === totalPages" style="margin-left: 10px;">
-          下一页
-          <el-icon class="el-icon--right">
-            <ArrowRight/>
-          </el-icon>
-        </el-button>
+    <!-- 弹窗 -->
+    <el-dialog v-model="data.dialogVisible" width="80%" title="PDF 预览">
+      <!-- PDF 显示 -->
+      <div v-if="selectedPdf">
+        <!-- 翻页按钮 -->
+        <div style="margin-bottom: 10px; text-align: center;">
+          <el-button :icon="ArrowLeft" @click="prevPage" :disabled="currentPage === 1" style="margin-right: 10px;">
+            上一页
+          </el-button>
+          <span>第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
+          <el-button @click="nextPage" :disabled="currentPage === totalPages" style="margin-left: 10px;">
+            下一页
+            <el-icon class="el-icon--right">
+              <ArrowRight/>
+            </el-icon>
+          </el-button>
+        </div>
+
+        <!-- PDF 内容 -->
+        <VuePdfEmbed
+            class="pdf"
+            style="border: 2px solid #eeeeee; width: 100%;"
+            annotation-layer
+            text-layer
+            :source="selectedPdf"
+            :page="currentPage"
+            @loaded="onPdfLoaded"
+        />
       </div>
-
-      <!-- PDF 内容 -->
-      <VuePdfEmbed
-          class="pdf"
-          style="border: 2px solid #eeeeee; width: 100%"
-          annotation-layer
-          text-layer
-          :source="selectedPdf"
-          :page="currentPage"
-          @loaded="onPdfLoaded"
-      />
-    </el-card>
+    </el-dialog>
   </div>
 </template>

@@ -64,8 +64,4 @@ const activePath = computed(() => route.path);
   background: floralwhite !important;
   color: #f56c6c !important;
 }
-
-.el-menu-item {
-  font-size: 18px;
-}
 </style>

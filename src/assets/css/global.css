@@ -5,3 +5,7 @@ body {
     color: #333;
     font-family: "Songti SC", serif;
 }
+
+.el-menu-item {
+    font-size: 18px;
+}

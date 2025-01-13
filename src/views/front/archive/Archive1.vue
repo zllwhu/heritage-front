@@ -16,13 +16,13 @@
               </el-icon>
               遗产简介
             </el-menu-item>
-            <el-menu-item index="1">
+            <el-menu-item index="/front/archive/whu/3d">
               <el-icon>
                 <Document/>
               </el-icon>
               三维模型
             </el-menu-item>
-            <el-menu-item index="1">
+            <el-menu-item index="/front/archive/whu/expert">
               <el-icon>
                 <Document/>
               </el-icon>

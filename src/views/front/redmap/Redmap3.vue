@@ -8,7 +8,7 @@
     </el-card>
 
     <el-space wrap>
-      <el-card v-for="(building, index) in data.buildings" :key="index" class="box-card" style="width: 236px">
+      <el-card v-for="(building, index) in data.buildings" :key="index" class="box-card" style="width: 228px">
         <template #header>
           <div class="card-header">
             <span>{{ building.name }}</span>

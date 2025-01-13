@@ -16,7 +16,7 @@ const data = reactive({
     {value: 'Option3', label: '武大校园历史建筑分析与评估', pdf: '/nowadays/003武大校园历史建筑分析与评估.pdf'},
     {value: 'Option4', label: '武大校园建筑现状调查总表', pdf: '/nowadays/004武大校园建筑现状调查总表.pdf'},
     {value: 'Option5', label: '武大校园文保单位', pdf: '/nowadays/005武大校园文保单位.pdf'},
-    {value: 'Option6', label: '文保单位保护控制图则', pdf: '/nowadays/006文保单位保护控制图则.pdf'},
+    // {value: 'Option6', label: '文保单位保护控制图则', pdf: '/nowadays/006文保单位保护控制图则.pdf'},
   ],
 });
 
@@ -60,7 +60,7 @@ onMounted(() => {
 <template>
   <div>
     <!-- 文件选择 -->
-    <el-card style="margin-bottom: 10px">
+    <el-card style="margin-bottom: 10px; font-size: 16px">
       请选择文件：
       <el-select v-model="data.selectedItem" placeholder="请选择文件" style="width: 300px">
         <el-option v-for="item in data.options" :key="item.value" :label="item.label" :value="item.value"/>
@@ -74,7 +74,7 @@ onMounted(() => {
         <el-button :icon="ArrowLeft" @click="prevPage" :disabled="currentPage === 1" style="margin-right: 10px;">
           上一页
         </el-button>
-        <span>第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
+        <span style="font-size: 16px">第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
         <el-button @click="nextPage" :disabled="currentPage === totalPages" style="margin-left: 10px;">
           下一页
           <el-icon class="el-icon--right">

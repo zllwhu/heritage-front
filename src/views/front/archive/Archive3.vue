@@ -14,9 +14,9 @@
           </div>
         </template>
         <div style="display: flex; justify-content: center">
-          <el-empty v-if="!item.archiPerspective" :image-size="35" @click="handlePdfPreview(item)"/>
+          <el-empty v-if="!item.archiCover" :image-size="35" @click="handlePdfPreview(item)"/>
           <img
-              v-if="item.archiPerspective"
+              v-if="item.archiCover"
               style="width: 200px; height: 160px"
               :src="getAvatar(item)"
               alt=""
@@ -27,40 +27,16 @@
     </el-space>
 
     <!-- PDF 预览弹窗 -->
-    <el-dialog v-model="data.dialogVisible" height="100%" width="80%" @close="closeDialog">
+    <el-dialog v-model="data.dialogVisible" width="80%" @close="closeDialog">
       <el-watermark :content="['湖北省校园文化遗产数字信息管理平台']">
         <div v-if="selectedPdf">
-          <!-- 翻页按钮 -->
-          <div style="margin-bottom: 10px; text-align: center;">
-            <el-button
-                :icon="ArrowLeft"
-                @click="prevPage"
-                :disabled="currentPage === 1"
-                style="margin-right: 10px;"
-            >
-              上一页
-            </el-button>
-            <span>第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
-            <el-button
-                @click="nextPage"
-                :disabled="currentPage === totalPages"
-                style="margin-left: 10px;"
-            >
-              下一页
-              <el-icon class="el-icon--right">
-                <ArrowRight/>
-              </el-icon>
-            </el-button>
-          </div>
-
           <!-- PDF 内容 -->
           <VuePdfEmbed
               class="pdf"
-              style="border: 2px solid #eeeeee; width: 100%; height: 800px"
+              style="border: 2px solid #eeeeee; width: 100%"
               annotation-layer
               text-layer
               :source="selectedPdf"
-              :page="currentPage"
               @loaded="onPdfLoaded"
               @error="onPdfError"
           />
@@ -74,7 +50,6 @@
 <script setup>
 import {reactive, ref, computed} from "vue";
 import VuePdfEmbed from "vue-pdf-embed";
-import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue";
 import request from "@/utils/request.js";
 
 // 数据状态
@@ -113,19 +88,6 @@ const onPdfError = (error) => {
   console.error("PDF 加载失败:", error);
 };
 
-// 翻页功能
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value += 1;
-  }
-};
-
-const prevPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value -= 1;
-  }
-};
-
 // 关闭弹窗
 const closeDialog = () => {
   data.currentPdf = "";
@@ -155,7 +117,7 @@ load();
 
 // 获取建筑图片路径
 const getAvatar = (item) => {
-  return `${request.defaults.baseURL}/system/whuarchi/download/${item.archiPerspective}`;
+  return `${request.defaults.baseURL}/system/whuarchi/download/${item.archiCover}`;
 };
 
 // 计算当前 PDF 文件

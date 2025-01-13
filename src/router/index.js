@@ -291,8 +291,20 @@ const router = createRouter({
                                 {
                                     path: 'items',
                                     name: 'front-archive-whu-items',
-                                    meta: {title: '建筑单体', needLogin: true},
+                                    meta: {title: '遗产简介', needLogin: true},
                                     component: () => import('../views/front/archive/Archive3.vue'),
+                                },
+                                {
+                                    path: '3d',
+                                    name: 'front-archive-whu-3d',
+                                    meta: {title: '三维模型', needLogin: true},
+                                    component: () => import('../views/front/archive/Archive4.vue'),
+                                },
+                                {
+                                    path: 'expert',
+                                    name: 'front-archive-whu-expert',
+                                    meta: {title: '专家解读', needLogin: true},
+                                    component: () => import('../views/front/archive/Archive5.vue'),
                                 },
                             ]
                         },
