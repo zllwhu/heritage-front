@@ -8,21 +8,20 @@
       <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（三）不畏强暴、血战到底的英雄气概。英雄气概是为了祖国利益不惜流血牺牲的崇高精神。抗战时期，中国军民面对敌人的炮火勇往直前，面对死亡威胁义无反顾，表现出了中华儿女的英雄气概。
       <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（四）百折不挠、坚忍不拔的必胜信念。必胜信念是最终战胜日本侵略者的坚定信心和顽强信念。抗战不仅是武力的较量，更是民族意志与信念的较量。持续14年的抗日战争，中国人民在持久抗战中顽强抗击敌人，全国军民始终保持抗战必胜的坚定信心，百折不挠、坚忍不拔，最终打败穷凶极恶的日本侵略者。
     </el-card>
-
     <el-space wrap>
-      <el-card v-for="(building, index) in data.buildings" :key="index" class="box-card" style="width: 228px">
+      <el-card v-for="(building, index) in data.allData" :key="index" class="box-card" style="width: 228px">
         <template #header>
           <div class="card-header">
-            <span>{{ building.name }}</span>
+            <span>{{ building.archiName }}</span>
           </div>
         </template>
         <div style="display: flex; justify-content: center">
-          <img style="width: 200px; height: 150px" :src="building.image" alt="" @click="handleImagePreview(building.image)"/>
+          <img style="width: 200px; height: 150px" :src="getAvatar(building)" alt=""
+               @click="handleImagePreview(building)"/>
         </div>
       </el-card>
     </el-space>
   </div>
-
   <el-dialog v-model="data.dialogVisible" width="700px" @close="data.currentImage = ''">
     <div class="image-container">
       <img :src="data.currentImage" alt="预览图" style="width: 668px; height: 501px;"/>
@@ -31,35 +30,45 @@
 </template>
 
 <script setup>
+import request from "@/utils/request.js";
 import {reactive} from "vue";
 import banner from "@/assets/img/海报-抗战精神.jpg";
 
 const data = reactive({
-  buildings: [
-    { name: '周恩来故居', image: '/redmap2/1.jpg' },
-    { name: '郭沫若故居', image: '/redmap2/2.png' },
-    { name: '学生饭厅及礼堂', image: '/redmap2/3.png' },
-    { name: '鄂西苏维埃军政干校', image: '/redmap1/12.jpg' },
-    { name: '红三军团医院旧址', image: '/redmap1/13.jpg' },
-    { name: '黄冈实验小学教学楼', image: '/redmap1/14.jpeg' },
-    {name: '雷天明故居', image: '/redmap1/15.jpeg'},
-    {name: '石桥铺会议旧址', image: '/redmap1/16.jpeg'},
-    {name: '王家坪烈士陵园', image: '/redmap1/17.jpg'},
-    {name: '新四军第五师兵工厂', image: '/redmap1/18.jpg'},
-    {name: '郧山书院旧址（红楼）', image: '/redmap1/19.jpeg'},
-    {name: '工农红四方面军南化塘战斗旧址', image: '/redmap1/20.jpg'},
-    {name: '中共松滋县第一届委员会遗址', image: '/redmap1/21.jpeg'},
-    {name: '中共郧阳地下党支部旧址', image: '/redmap1/22.jpg'},
-    { name: '宜昌市夷陵区南边抗日将士陵园', image: '/redmap2/4.png' },
-    { name: '鄂南抗日根据地指挥中心旧址', image: '/redmap2/16.jpg' },
-    { name: '新四军第五师纪念馆', image: '/redmap2/17.jpg' },
-    { name: '汉口新四军军部旧址纪念馆', image: '/redmap1/6.jpg' },
-    { name: '鄂豫边区革命烈士陵园', image: '/redmap2/19.jpg' }
-  ],
+  allData: [],
+  dialogVisible: false,
+  currentImage: ''
 })
 
+// 加载数据并根据分页参数传递分页信息
+const load = () => {
+  request.get('/system/architecture/spirit', {
+    params: {
+      spirit: "抗战精神",
+    }
+  }).then(res => {
+    if (res.data) {
+      data.allData = res.data;  // 存储全部数据
+    } else {
+      console.error("接口返回的数据格式不正确");
+    }
+  }).catch(error => {
+    console.error("请求失败:", error);
+  });
+};
+load();
+
+const getAvatar = (item) => {
+  if (item.tag === 1) {
+    return request.defaults.baseURL + "/system/whuarchi/download/" + item.archiCover;
+  } else {
+    return request.defaults.baseURL + "/system/architecture/download/" + item.archiCover;
+  }
+}
+
 const handleImagePreview = (imageUrl) => {
-  data.currentImage = imageUrl; // 设置当前图片地址
+  data.currentImage = getAvatar(imageUrl); // 设置当前图片地址
   data.dialogVisible = true; // 显示图片预览弹窗
+  data.form = JSON.parse(JSON.stringify(imageUrl))
 }
 </script>

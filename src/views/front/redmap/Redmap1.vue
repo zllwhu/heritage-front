@@ -9,14 +9,14 @@
       <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（四）对党忠诚、不负人民。带领人民创造幸福生活，是我们党始终不渝的奋斗目标。我们要顺应人民群众对美好生活的向往，坚持以人民为中心的发展思想，以保障和改善民生为重点，发展各项社会事业，加大收入分配调节力度，打赢脱贫攻坚战，保证人民平等参与、平等发展权利，使改革发展成果更多更公平惠及全体人民，朝着实现全体人民共同富裕的目标稳步迈进。
     </el-card>
     <el-space wrap>
-      <el-card v-for="(building, index) in data.buildings" :key="index" class="box-card" style="width: 228px">
+      <el-card v-for="(building, index) in data.allData" :key="index" class="box-card" style="width: 228px">
         <template #header>
           <div class="card-header">
-            <span>{{ building.name }}</span>
+            <span>{{ building.archiName }}</span>
           </div>
         </template>
         <div style="display: flex; justify-content: center">
-          <img style="width: 200px; height: 150px" :src="building.image" alt="" @click="handleImagePreview(building.image)"/>
+          <img style="width: 200px; height: 150px" :src="getAvatar(building)" alt="" @click="handleImagePreview(building)"/>
         </div>
       </el-card>
     </el-space>
@@ -29,38 +29,45 @@
 </template>
 
 <script setup>
-import {reactive} from "vue";
+import request from "@/utils/request.js";
+import { reactive } from "vue";
 import banner from "@/assets/img/海报-建党精神.jpg";
 
 const data = reactive({
-  buildings: [
-    {name: '中国共产党纪律建设历史陈列馆', image: '/redmap1/1.jpg'},
-    {name: '中共五大会址纪念馆', image: '/redmap1/2.jpg'},
-    {name: '八七会议会址纪念馆', image: '/redmap1/3.jpg'},
-    {name: '武汉中共中央机关旧址纪念馆', image: '/redmap1/4.jpg'},
-    {name: '八路军武汉办事处旧址纪念馆', image: '/redmap1/5.jpg'},
-    {name: '汉口新四军军部旧址纪念馆', image: '/redmap1/6.jpg'},
-    {name: '武昌中央农民运动讲习所旧址', image: '/redmap1/7.png'},
-    {name: '红安革命烈士陵园', image: '/redmap1/8.jpg'},
-    {name: '七里坪革命旧址', image: '/redmap1/9.png'},
-    {name: '湘鄂西革命根据地旧址', image: '/redmap1/10.jpeg'},
-    {name: '李达故居', image: '/redmap1/11.jpeg'},
-    {name: '鄂西苏维埃军政干校', image: '/redmap1/12.jpg'},
-    {name: '红三军团医院旧址', image: '/redmap1/13.jpg'},
-    {name: '黄冈实验小学教学楼', image: '/redmap1/14.jpeg'},
-    {name: '雷天明故居', image: '/redmap1/15.jpeg'},
-    {name: '石桥铺会议旧址', image: '/redmap1/16.jpeg'},
-    {name: '王家坪烈士陵园', image: '/redmap1/17.jpg'},
-    {name: '新四军第五师兵工厂', image: '/redmap1/18.jpg'},
-    {name: '郧山书院旧址（红楼）', image: '/redmap1/19.jpeg'},
-    {name: '工农红四方面军南化塘战斗旧址', image: '/redmap1/20.jpg'},
-    {name: '中共松滋县第一届委员会遗址', image: '/redmap1/21.jpeg'},
-    {name: '中共郧阳地下党支部旧址', image: '/redmap1/22.jpg'}
-  ],
+  allData: [],
+  dialogVisible: false,
+  currentImage: ''
 })
 
+// 加载数据并根据分页参数传递分页信息
+const load = () => {
+  request.get('/system/architecture/spirit', {
+    params: {
+      spirit: "建党精神",
+    }
+  }).then(res => {
+    if (res.data) {
+      data.allData = res.data;  // 存储全部数据
+    } else {
+      console.error("接口返回的数据格式不正确");
+    }
+  }).catch(error => {
+    console.error("请求失败:", error);
+  });
+};
+load();
+
+const getAvatar = (item) => {
+  if (item.tag === 1) {
+    return request.defaults.baseURL + "/system/whuarchi/download/" + item.archiCover;
+  } else {
+    return request.defaults.baseURL + "/system/architecture/download/" + item.archiCover;
+  }
+}
+
 const handleImagePreview = (imageUrl) => {
-  data.currentImage = imageUrl; // 设置当前图片地址
+  data.currentImage = getAvatar(imageUrl); // 设置当前图片地址
   data.dialogVisible = true; // 显示图片预览弹窗
+  data.form = JSON.parse(JSON.stringify(imageUrl))
 }
 </script>
